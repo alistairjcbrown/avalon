@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { clientRoleFor } from 'reducers';
+import { clientRoleFor, gameIsJoinedFor } from 'reducers';
 import { connect as makeConnection } from 'actions/connection';
 import { PLAYER, GAME_MASTER } from 'roles';
 
@@ -16,8 +16,9 @@ class App extends Component {
   render() {
     const { state } = this.props;
     const role = clientRoleFor(state);
-    if (role === PLAYER) return <PlayerStart />;
-    if (role === GAME_MASTER) return <GameMasterStart />;
+    const isJoined = gameIsJoinedFor(state);
+    if (role === PLAYER && isJoined) return <PlayerStart />;
+    if (role === GAME_MASTER && isJoined) return <GameMasterStart />;
     return <InitialScreen />;
   }
 }

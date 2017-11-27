@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
-import { clientRoleFor, gameIdFor } from 'reducers';
+import { clientRoleFor, gameIdFor, playerNameFor } from 'reducers';
 import PlayerStart from './components';
 
 const mapStateToProps = (state) => {
   return {
     clientRole: clientRoleFor(state),
-    gameId: gameIdFor(state)
+    gameId: gameIdFor(state),
+    playerName: playerNameFor(state)
   };
 };
 

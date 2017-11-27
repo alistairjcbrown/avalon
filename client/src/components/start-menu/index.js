@@ -4,7 +4,7 @@ import shortId from 'shortid';
 class StartScreen extends Component {
   onJoinExistingGame = (e) => {
     e.preventDefault();
-    const playerName = 'unknown'; // TODO: need to get the users name
+    const playerName = this.playerNameRef.value;
     const gameId = this.gameIdRef.value;
     if (!shortId.isValid(gameId)) return;
     this.props.onJoinExistingGame(gameId, playerName);
@@ -19,8 +19,16 @@ class StartScreen extends Component {
     this.gameIdRef = gameIdRef;
   }
 
+  setPlayerNameRef = (playerNameRef) => {
+    this.playerNameRef = playerNameRef;
+  }
+
   checkInputSubmission = (e) => {
     if (e.key === 'Enter') this.onJoinExistingGame(e);
+  }
+
+  onNameInputSubmission = (e) => {
+    if (e.key === 'Enter') this.gameIdRef.focus();
   }
 
   render() {
@@ -30,7 +38,14 @@ class StartScreen extends Component {
 
         <p>
           <input
+            ref={this.setPlayerNameRef}
+            placeholder='Player name'
+            onKeyPress={this.onNameInputSubmission}
+          />
+          <br />
+          <input
             ref={this.setGameIdRef}
+            placeholder='Game Id'
             maxLength={14}
             onKeyPress={this.checkInputSubmission}
           />

@@ -4,9 +4,9 @@ import { PLAYER, GAME_MASTER } from 'roles'
 class StartScreen extends Component {
   renderRole(role) {
     if (role === GAME_MASTER) {
-      return 'You are the game master';
+      return 'You are the game master of this game';
     } else if (role === PLAYER) {
-      return 'You are a player';
+      return `Hi ${this.props.playerName}, you are a player in this game`;
     } else {
       return 'You are a spectator';
     }
@@ -16,8 +16,8 @@ class StartScreen extends Component {
     return (
       <div className="role-banner">
         <span>{this.renderRole(this.props.role)}</span>
-        {' - '}
-        <span>Joined game {this.props.gameId}</span>
+        {' '}
+        <span>[Game Id: {this.props.gameId}]</span>
       </div>
     );
   }

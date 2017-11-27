@@ -5,7 +5,11 @@ class PlayerStart extends Component {
   render() {
     return (
       <div>
-        <RoleBanner role={this.props.clientRole} gameId={this.props.gameId} />
+        <RoleBanner
+          gameId={this.props.gameId}
+          role={this.props.clientRole}
+          playerName={this.props.playerName}
+        />
         <p>Player start</p>
       </div>
     );

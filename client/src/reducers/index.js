@@ -18,12 +18,32 @@ export const isConnectedFor = createSelector(
 
 export const gameIdFor = createSelector(
   gameFor,
-  fromGame.idFor,
+  fromGame.idFor
+);
+
+export const gameSettingsFor = createSelector(
+  gameFor,
+  fromGame.settingsFor
+);
+
+export const gameIsJoinedFor = createSelector(
+  gameFor,
+  fromGame.isJoinedFor
+);
+
+export const gameFailureMessageFor = createSelector(
+  gameFor,
+  fromGame.failureMessageFor
+);
+
+export const playersFor = createSelector(
+  gameFor,
+  fromGame.playersFor
 );
 
 export const clientRoleFor = createSelector(
   clientFor,
-  fromClient.roleFor,
+  fromClient.roleFor
 );
 
 export const playerNameFor = createSelector(
