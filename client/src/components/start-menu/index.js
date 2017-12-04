@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import shortId from 'shortid';
 import './stylesheet.css';
 
@@ -32,6 +33,10 @@ class StartScreen extends Component {
     if (e.key === 'Enter') this.gameIdRef.focus();
   }
 
+  getDefaultGameId() {
+    return queryString.parse(window.location.search).gameId;
+  }
+
   render() {
     return (
       <div className="start-menu">
@@ -47,6 +52,7 @@ class StartScreen extends Component {
             placeholder='Game Id'
             maxLength={14}
             onKeyPress={this.checkInputSubmission}
+            defaultValue={this.getDefaultGameId()}
           />
           <br />
           <button onClick={this.onJoinExistingGame}>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { KawaiiPlanet } from 'react-kawaii';
 import _ from 'lodash';
+import { KawaiiPlanet } from 'react-kawaii';
+import QRCode from 'qrcode.react';
 import RoleBanner from 'components/role-banner';
 import avatarConfigurations from './avatar-configurations';
 import './stylesheet.css';
@@ -9,6 +10,10 @@ class GameMasterStart extends Component {
   static defaultProps = {
     players: []
   };
+
+  generateGameUrl() {
+    return `${window.location.href}?gameId=${this.props.gameId}`;
+  }
 
   renderMessage() {
     const { gameSettings: { numberOfPlayers }, players } = this.props;
@@ -60,6 +65,9 @@ class GameMasterStart extends Component {
           </div>
           <div className='game-master-start__players'>
             {this.renderPlaceholders()}
+          </div>
+          <div className='game-master-start__qr-code'>
+            <QRCode size={250} value={this.generateGameUrl()} />
           </div>
         </div>
       </div>

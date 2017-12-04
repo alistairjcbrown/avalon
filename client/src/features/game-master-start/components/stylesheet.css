@@ -69,3 +69,7 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+
+.game-master-start__qr-code {
+  margin-top: 3em;
+}
