@@ -1,0 +1,7 @@
+[
+  { "mood": "sad", "color": "#fb83d1" },
+  { "mood": "shocked", "color": "#83D1FB" },
+  { "mood": "happy", "color": "#fbad83" },
+  { "mood": "blissful", "color": "#83fbad" },
+  { "mood": "lovestruck", "color": "#ad83fb" }
+]

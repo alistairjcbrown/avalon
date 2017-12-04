@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import shortId from 'shortid';
+import './stylesheet.css';
 
 class StartScreen extends Component {
   onJoinExistingGame = (e) => {
@@ -33,10 +34,8 @@ class StartScreen extends Component {
 
   render() {
     return (
-      <div className="initial-screen">
-        <p>What would you like to do?</p>
-
-        <p>
+      <div className="start-menu">
+        <div className="start-menu__join-game">
           <input
             ref={this.setPlayerNameRef}
             placeholder='Player name'
@@ -50,18 +49,18 @@ class StartScreen extends Component {
             onKeyPress={this.checkInputSubmission}
           />
           <br />
-          <a href='#' onClick={this.onJoinExistingGame}>
+          <button onClick={this.onJoinExistingGame}>
             Join an existing game
-          </a>
-        </p>
+          </button>
+        </div>
 
-        <p>--- Or ---</p>
+        <div className="start-menu__divider"><span>Or</span></div>
 
-        <p>
-          <a href='#' onClick={this.onStartNewGame}>
+        <div className="start-menu__new-game">
+          <button onClick={this.onStartNewGame}>
             Start a new game
-          </a>
-        </p>
+          </button>
+        </div>
       </div>
     );
   }

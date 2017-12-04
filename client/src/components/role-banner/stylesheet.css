@@ -1,0 +1,14 @@
+.role-banner {
+  border-bottom: 1px solid #faebcc;
+  background-color: #fcf8e3;
+  padding: 1em;
+  height: 1em;
+}
+
+.role-banner__role {
+  float: left;
+}
+
+.role-banner__game {
+  float: right;
+}

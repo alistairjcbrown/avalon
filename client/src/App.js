@@ -8,6 +8,8 @@ import InitialScreen from 'features/initial-screen';
 import GameMasterStart from 'features/game-master-start';
 import PlayerStart from 'features/player-start';
 
+import './stylesheet.css';
+
 class App extends Component {
   componentDidMount() {
     this.props.makeConnection();

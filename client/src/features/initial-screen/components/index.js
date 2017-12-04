@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import StartMenu from 'components/start-menu';
+import './stylesheet.css';
 
 class InitialScreen extends Component {
   renderFailureMessage() {
     if (!this.props.failureMessage) return null;
     return (
-      <div>
+      <div className='initial-screen__failure'>
         Failed to connect to game, {this.props.failureMessage.toLowerCase()}
       </div>
     );
@@ -13,7 +14,7 @@ class InitialScreen extends Component {
 
   render() {
     return (
-      <div>
+      <div className='initial-screen'>
         {this.renderFailureMessage()}
         <StartMenu
           onStartNewGame={this.props.onStartNewGame}

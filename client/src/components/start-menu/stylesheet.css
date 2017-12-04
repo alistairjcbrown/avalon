@@ -1,0 +1,56 @@
+.start-menu {
+  margin-top: 1em;
+}
+
+.start-menu button,
+.start-menu input {
+  font-size: 1.5em;
+}
+
+.start-menu button {
+  cursor: pointer;
+  width: 300px;
+}
+
+.start-menu input {
+  width: 294px;
+}
+
+.start-menu__join-game {
+
+}
+
+.start-menu__new-game {
+
+}
+
+.start-menu__divider {
+  line-height: 0.5;
+  text-align: center;
+  margin: 2em;
+}
+
+.start-menu__divider span {
+  display: inline-block;
+  position: relative;
+}
+
+.start-menu__divider span:before,
+.start-menu__divider span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid #000;
+  top: 0;
+  width: 600px;
+}
+
+.start-menu__divider span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.start-menu__divider span:after {
+  left: 100%;
+  margin-left: 15px;
+}

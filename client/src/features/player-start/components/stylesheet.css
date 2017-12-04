@@ -1,0 +1,11 @@
+.player-start__waiting-message {
+  margin: 2em;
+}
+
+.player-start__player {
+  display: inline-block;
+}
+
+.player-start__player__name {
+  font-size: 1.4em;
+}
