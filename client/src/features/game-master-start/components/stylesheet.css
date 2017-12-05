@@ -8,6 +8,16 @@
   }
 }
 
+.game-master-start__failure {
+  border-bottom: 1px solid #ebccd1;
+  background-color: #f2dede;
+  color: #a94442;
+  height: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+
 .game-master-start__waiting-message {
   margin-top: 2em;
 }

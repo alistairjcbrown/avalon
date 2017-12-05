@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import shortId from 'shortid';
-import { startNewGame, joinExistingGame } from 'actions/game';
+import { createNewGame, joinExistingGame } from 'actions/game';
 import { gameFailureMessageFor } from 'reducers';
 import InitialScreen from './components';
 
@@ -12,9 +12,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onStartNewGame(gameSettings) {
+    onCreateNewGame(gameSettings) {
       const gameId = shortId.generate();
-      dispatch(startNewGame(gameId, gameSettings))
+      dispatch(createNewGame(gameId, gameSettings))
     },
 
     onJoinExistingGame(gameId, playerName) {

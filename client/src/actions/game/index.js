@@ -2,32 +2,42 @@ import { PLAYER, GAME_MASTER } from 'roles'
 
 // Action Types
 
-export const START_NEW_GAME = 'START_NEW_GAME';
-export const START_NEW_GAME_SUCCESS = 'START_NEW_GAME_SUCCESS';
-export const START_NEW_GAME_FAILURE = 'START_NEW_GAME_FAILURE';
+export const GAME_STATE_CHANGE = 'GAME_STATE_CHANGE';
+export const CREATE_NEW_GAME = 'CREATE_NEW_GAME';
+export const CREATE_NEW_GAME_SUCCESS = 'CREATE_NEW_GAME_SUCCESS';
+export const CREATE_NEW_GAME_FAILURE = 'CREATE_NEW_GAME_FAILURE';
 export const JOIN_EXISTING_GAME = 'JOIN_EXISTING_GAME';
 export const JOIN_EXISTING_GAME_SUCCESS = 'JOIN_EXISTING_GAME_SUCCESS';
 export const JOIN_EXISTING_GAME_FAILURE = 'JOIN_EXISTING_GAME_FAILURE';
-export const GAME_STATE_CHANGE = 'GAME_STATE_CHANGE';
+export const START_GAME = 'START_GAME';
+export const START_GAME_SUCCESS = 'START_GAME_SUCCESS';
+export const START_GAME_FAILURE = 'START_GAME_FAILURE';
 
 // Actions
 
-export function startNewGame(gameId, gameSettings) {
+export function onGameStateChange(gameData) {
   return {
-    type: START_NEW_GAME,
+    type: GAME_STATE_CHANGE,
+    payload: gameData
+  };
+}
+
+export function createNewGame(gameId, gameSettings) {
+  return {
+    type: CREATE_NEW_GAME,
     payload: { gameId, gameSettings, clientRole: GAME_MASTER }
   };
 }
 
-export function startNewGameSuccess() {
+export function createNewGameSuccess() {
   return {
-    type: START_NEW_GAME_SUCCESS
+    type: CREATE_NEW_GAME_SUCCESS
   };
 }
 
-export function startNewGameFailure(failureMessage) {
+export function createNewGameFailure(failureMessage) {
   return {
-    type: START_NEW_GAME_FAILURE,
+    type: CREATE_NEW_GAME_FAILURE,
     payload: { failureMessage }
   };
 }
@@ -52,9 +62,22 @@ export function joinExistingGameFailure(failureMessage) {
   };
 }
 
-export function onGameStateChange(gameData) {
+export function startGame(gameId, clientRole) {
   return {
-    type: GAME_STATE_CHANGE,
-    payload: gameData
+    type: START_GAME,
+    payload: { gameId, clientRole }
+  };
+}
+
+export function startGameSuccess() {
+  return {
+    type: START_GAME_SUCCESS
+  };
+}
+
+export function startGameFailure(failureMessage) {
+  return {
+    type: START_GAME_FAILURE,
+    payload: { failureMessage }
   };
 }

@@ -1,11 +1,15 @@
+import states from 'states';
 import {
-  START_NEW_GAME,
-  START_NEW_GAME_SUCCESS,
-  START_NEW_GAME_FAILURE,
+  GAME_STATE_CHANGE,
+  CREATE_NEW_GAME,
+  CREATE_NEW_GAME_SUCCESS,
+  CREATE_NEW_GAME_FAILURE,
   JOIN_EXISTING_GAME,
   JOIN_EXISTING_GAME_SUCCESS,
   JOIN_EXISTING_GAME_FAILURE,
-  GAME_STATE_CHANGE
+  START_GAME,
+  START_GAME_SUCCESS,
+  START_GAME_FAILURE,
 } from 'actions/game';
 
 // Selectors
@@ -14,6 +18,7 @@ export const idFor = ({ id }) => id;
 export const settingsFor = ({ settings }) => settings;
 export const playersFor = ({ players }) => players;
 export const isJoinedFor = ({ isJoined }) => isJoined;
+export const isStartedFor = (state) => (settingsFor(state) || {}).state === states.STARTED;
 export const failureMessageFor = ({ failureMessage }) => failureMessage;
 
 // Reducers
@@ -24,16 +29,21 @@ const defaultState = {
 
 export default function(state = defaultState, action) {
   switch (action.type) {
-    case START_NEW_GAME: {
+    case GAME_STATE_CHANGE: {
+      const { players, gameSettings: settings } = action.payload;
+      return { ...state, settings, players };
+    }
+
+    case CREATE_NEW_GAME: {
       const { gameId: id, gameSettings: settings } = action.payload;
       return { ...state, id, settings };
     }
 
-    case START_NEW_GAME_SUCCESS: {
+    case CREATE_NEW_GAME_SUCCESS: {
       return { ...state, isJoined: true };
     }
 
-    case START_NEW_GAME_FAILURE: {
+    case CREATE_NEW_GAME_FAILURE: {
       const { failureMessage } = action.payload;
       return { ...state, isJoined: false, failureMessage };
     }
@@ -52,9 +62,17 @@ export default function(state = defaultState, action) {
       return { ...state, isJoined: false, failureMessage };
     }
 
-    case GAME_STATE_CHANGE: {
-      const { players, gameSettings: settings } = action.payload;
-      return { ...state, settings, players };
+    case START_GAME: {
+      return state;
+    }
+
+    case START_GAME_SUCCESS: {
+      return { ...state, isStarted: true };
+    }
+
+    case START_GAME_FAILURE: {
+      const { failureMessage } = action.payload;
+      return { ...state, isStarted: false, failureMessage };
     }
 
     default:

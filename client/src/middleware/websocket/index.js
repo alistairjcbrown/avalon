@@ -2,13 +2,16 @@ import io from 'socket.io-client'
 import config from '../../config';
 import { CONNECT, DISCONNECT, onConnected, onDisconnected } from 'actions/connection';
 import {
-  START_NEW_GAME,
+  CREATE_NEW_GAME,
   JOIN_EXISTING_GAME,
-  startNewGameSuccess,
-  startNewGameFailure,
+  START_GAME,
+  onGameStateChange,
+  createNewGameSuccess,
+  createNewGameFailure,
   joinExistingGameSuccess,
   joinExistingGameFailure,
-  onGameStateChange
+  startGameSuccess,
+  startGameFailure
 } from 'actions/game';
 
 let socket = null;
@@ -41,13 +44,13 @@ export default (store) => (next) => (action) => {
       break;
     }
 
-    case START_NEW_GAME: {
+    case CREATE_NEW_GAME: {
       const { gameId: id, gameSettings: settings, clientRole: role } = action.payload;
       socket.emit('new-game', { id, settings, client: { role } }, function (response) {
         if (response.success) {
-          store.dispatch(startNewGameSuccess());
+          store.dispatch(createNewGameSuccess());
         } else {
-          store.dispatch(startNewGameFailure(response.message));
+          store.dispatch(createNewGameFailure(response.message));
         }
       });
       return next(action);
@@ -60,6 +63,18 @@ export default (store) => (next) => (action) => {
           store.dispatch(joinExistingGameSuccess());
         } else {
           store.dispatch(joinExistingGameFailure(response.message));
+        }
+      });
+      return next(action);
+    }
+
+    case START_GAME: {
+      const { gameId: id, clientRole: role } = action.payload;
+      socket.emit('start-game', { id, client: { role } }, function (response) {
+        if (response.success) {
+          store.dispatch(startGameSuccess());
+        } else {
+          store.dispatch(startGameFailure(response.message));
         }
       });
       return next(action);

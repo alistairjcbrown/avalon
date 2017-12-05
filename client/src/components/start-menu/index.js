@@ -12,9 +12,9 @@ class StartScreen extends Component {
     this.props.onJoinExistingGame(gameId, playerName);
   }
 
-  onStartNewGame = (e) => {
+  onCreateNewGame = (e) => {
     e.preventDefault();
-    this.props.onStartNewGame({ numberOfPlayers: 5 });
+    this.props.onCreateNewGame({ numberOfPlayers: 5 });
   }
 
   setGameIdRef = (gameIdRef) => {
@@ -63,7 +63,7 @@ class StartScreen extends Component {
         <div className="start-menu__divider"><span>Or</span></div>
 
         <div className="start-menu__new-game">
-          <button onClick={this.onStartNewGame}>
+          <button onClick={this.onCreateNewGame}>
             Start a new game
           </button>
         </div>

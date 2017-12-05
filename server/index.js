@@ -1,7 +1,9 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
+const uuidv4 = require('uuid/v4');
 const config = require('../client/src/config');
 const roles = require('../client/src/roles');
+const states = require('../client/src/states');
 
 const clientData = {};
 const gameData = {};
@@ -23,10 +25,14 @@ const alreadyInGame = function ({ name }, gameId) {
   return getGamePlayers(gameId).some(({ player }) => player.name === name);
 };
 
+const getGameData = function (gameId) {
+  return gameData[gameId] || {};
+};
+
 const getGameState = function (gameId) {
   return {
     players: getGamePlayers(gameId),
-    gameSettings: gameData[gameId]
+    gameSettings: getGameData(gameId)
   };
 };
 
@@ -50,7 +56,7 @@ io.on('connection', function (socket){
     }
 
     socket.join(gameId);
-    gameData[gameId] = Object.assign({}, gameData[gameId], { id: gameId }, gameSettings);
+    gameData[gameId] = Object.assign({}, getGameData(gameId), gameSettings, { id: gameId, state: states.UNSTARTED });
     clientData[socket.id] = Object.assign({}, clientData[socket.id], client, { gameId });
 
     outputState();
@@ -68,7 +74,7 @@ io.on('connection', function (socket){
       return;
     }
 
-    if (getGamePlayers(gameId).length === gameData[gameId].numberOfPlayers) {
+    if (getGamePlayers(gameId).length === getGameData(gameId).numberOfPlayers) {
       callback({ success: false, gameId, message: 'Game is full' });
       return;
     }
@@ -82,12 +88,35 @@ io.on('connection', function (socket){
     callback({ success: true, gameId });
   });
 
+  socket.on('start-game', function ({ id: gameId, client }, callback) {
+    if (client.role !== roles.GAME_MASTER) {
+      callback({ success: false, gameId, message: 'Only the game master can start the game' });
+      return;
+    }
+
+    if (getGamePlayers(gameId).length !== getGameData(gameId).numberOfPlayers) {
+      callback({ success: false, gameId, message: 'Game must have all players' });
+      return;
+    }
+
+    gameData[gameId] = Object.assign({}, getGameData(gameId), { id: gameId, state: states.STARTED });
+
+    io.to(gameId).emit('game-state-change', getGameState(gameId));
+
+    outputState();
+    callback({ success: true, gameId });
+  });
+
   socket.on('disconnect', function () {
     if (clientData[socket.id]) {
       const { gameId } = clientData[socket.id];
-      delete clientData[socket.id];
 
-      // TODO: Check if the game is in the finished stated too
+      if (getGameData(gameId).state === states.UNSTARTED) {
+        delete clientData[socket.id];
+        io.to(gameId).emit('game-state-change', getGameState(gameId));
+      }
+
+      // TODO: Check if the game is in the finished state too
       // if (getConnectedSocketIds(gameId).length === 0) {
       //   delete gameData[gameId];
       // }

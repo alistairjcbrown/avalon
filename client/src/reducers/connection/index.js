@@ -13,12 +13,10 @@ const defaultState = {
 export default function(state = defaultState, action) {
   switch (action.type) {
     case CONNECTED: {
-      console.log('Connected!');
       return { ...state, isConnected: true };
     }
 
     case DISCONNECTED: {
-      console.log('Disconnected!');
       return { ...state, isConnected: false };
     }
 

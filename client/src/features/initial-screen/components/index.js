@@ -17,7 +17,7 @@ class InitialScreen extends Component {
       <div className='initial-screen'>
         {this.renderFailureMessage()}
         <StartMenu
-          onStartNewGame={this.props.onStartNewGame}
+          onCreateNewGame={this.props.onCreateNewGame}
           onJoinExistingGame={this.props.onJoinExistingGame}
         />
       </div>

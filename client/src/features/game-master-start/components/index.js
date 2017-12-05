@@ -11,8 +11,21 @@ class GameMasterStart extends Component {
     players: []
   };
 
+  startGame = () => {
+    this.props.startGame(this.props.gameId, this.props.clientRole);
+  };
+
   generateGameUrl() {
     return `${window.location.href}?gameId=${this.props.gameId}`;
+  }
+
+  renderFailureMessage() {
+    if (!this.props.failureMessage) return null;
+    return (
+      <div className='game-master-start__failure'>
+        Failed to start game, {this.props.failureMessage.toLowerCase()}
+      </div>
+    );
   }
 
   renderMessage() {
@@ -22,7 +35,7 @@ class GameMasterStart extends Component {
       return `Waiting for ${playersToConnect} players to join`;
     }
     return (
-      <button>Start Game!</button>
+      <button onClick={this.startGame}>Start Game!</button>
     );
   }
 
@@ -60,6 +73,7 @@ class GameMasterStart extends Component {
         />
 
         <div className='game-master-start'>
+          {this.renderFailureMessage()}
           <div className='game-master-start__waiting-message'>
             {this.renderMessage()}
           </div>
