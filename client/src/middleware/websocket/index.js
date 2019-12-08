@@ -21,7 +21,7 @@ export default (store) => (next) => (action) => {
     case CONNECT: {
       if (socket !== null) socket.close();
 
-      socket = io(`${config.host}:${config.port}`);
+      socket = io(`http://${config.host}:${config.port}`);
       socket.on('connect', function () {
         store.dispatch(onConnected());
       });

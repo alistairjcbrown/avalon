@@ -5,6 +5,7 @@ import './stylesheet.css';
 class InitialScreen extends Component {
   renderFailureMessage() {
     if (!this.props.failureMessage) return null;
+
     return (
       <div className='initial-screen__failure'>
         Failed to connect to game, {this.props.failureMessage.toLowerCase()}

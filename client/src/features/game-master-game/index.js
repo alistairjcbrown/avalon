@@ -4,7 +4,7 @@ class GameMasterGame extends Component {
   render() {
     return (
       <div>
-        Let the games begin!
+        Let the games begin! (game master)
       </div>
     );
   }

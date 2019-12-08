@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { KawaiiPlanet } from 'react-kawaii';
+import { Planet } from 'react-kawaii';
 import QRCode from 'qrcode.react';
 import RoleBanner from 'components/role-banner';
 import avatarConfigurations from './avatar-configurations';
@@ -48,7 +48,7 @@ class GameMasterStart extends Component {
         return (
           <div className='game-master-start__players__player' key={name}>
             <div className='game-master-start__players__player__avatar'>
-              <KawaiiPlanet {...avatarConfigurations[index]} size={110} />
+              <Planet {...avatarConfigurations[index]} size={110} />
             </div>
             <div className='game-master-start__players__player__name'>
               {name}

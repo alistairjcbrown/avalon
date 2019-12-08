@@ -4,7 +4,7 @@ class PlayerGame extends Component {
   render() {
     return (
       <div>
-        Let the games begin!
+        Let the games begin! (player)
       </div>
     );
   }
