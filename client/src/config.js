@@ -1,4 +1,4 @@
 module.exports = {
-  host: '192.168.0.22',
-  port: 4000
+  host: process.env.REACT_APP_SERVER_IP_ADDRESS,
+  port: process.env.REACT_APP_SERVER_PORT
 }
