@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { clientRoleFor, gameIsJoinedFor, gameIsStartedFor } from 'reducers';
-import { connect as makeConnection } from 'actions/connection';
-import { PLAYER, GAME_MASTER } from 'roles';
+import PropTypes from 'prop-types';
+import { SPECTATOR, PLAYER, GAME_MASTER } from 'roles';
 
 import InitialScreen from 'features/initial-screen';
 import GameMasterStart from 'features/game-master-start';
@@ -14,14 +12,12 @@ import './stylesheet.css';
 
 class App extends Component {
   componentDidMount() {
-    this.props.makeConnection();
+    const { makeConnection } = this.props;
+    makeConnection();
   }
 
   render() {
-    const { state } = this.props;
-    const role = clientRoleFor(state);
-    const isJoined = gameIsJoinedFor(state);
-    const isStarted = gameIsStartedFor(state);
+    const { role, isJoined, isStarted } = this.props;
     if (role === PLAYER && isStarted) return <PlayerGame />;
     if (role === GAME_MASTER && isStarted) return <GameMasterGame />;
     if (role === PLAYER && isJoined) return <PlayerStart />;
@@ -30,12 +26,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ state });
-const mapDispatchToProps = (dispatch) => {
-  return {
-    makeConnection() {
-      dispatch(makeConnection());
-    }
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+App.propTypes = {
+  makeConnection: PropTypes.func.isRequired,
+  role: PropTypes.oneOf([SPECTATOR, PLAYER, GAME_MASTER]),
+  isJoined: PropTypes.bool.isRequired,
+  isStarted: PropTypes.bool.isRequired,
+};
+
+App.defaultProps = {
+  role: undefined,
+};
+
+export default App;

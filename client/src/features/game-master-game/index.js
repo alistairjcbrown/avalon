@@ -1,13 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class GameMasterGame extends Component {
-  render() {
-    return (
-      <div>
-        Let the games begin! (game master)
-      </div>
-    );
-  }
-}
+const GameMasterGame = () => <div>Let the games begin! (game master)</div>;
 
 export default GameMasterGame;

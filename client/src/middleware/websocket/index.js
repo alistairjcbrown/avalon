@@ -1,6 +1,10 @@
-import io from 'socket.io-client'
-import config from '../../config';
-import { CONNECT, DISCONNECT, onConnected, onDisconnected } from 'actions/connection';
+import io from 'socket.io-client';
+import {
+  CONNECT,
+  DISCONNECT,
+  onConnected,
+  onDisconnected,
+} from 'actions/connection';
 import {
   CREATE_NEW_GAME,
   JOIN_EXISTING_GAME,
@@ -11,26 +15,28 @@ import {
   joinExistingGameSuccess,
   joinExistingGameFailure,
   startGameSuccess,
-  startGameFailure
+  startGameFailure,
 } from 'actions/game';
+import config from '../../config';
 
 let socket = null;
 
-export default (store) => (next) => (action) => {
-  switch(action.type) {
+// eslint-disable-next-line consistent-return
+export default store => next => action => {
+  switch (action.type) {
     case CONNECT: {
       if (socket !== null) socket.close();
 
       socket = io(`http://${config.host}:${config.port}`);
-      socket.on('connect', function () {
+      socket.on('connect', () => {
         store.dispatch(onConnected());
       });
 
-      socket.on('disconnect', function () {
+      socket.on('disconnect', () => {
         store.dispatch(onDisconnected());
       });
 
-      socket.on('game-state-change', function (gameData) {
+      socket.on('game-state-change', gameData => {
         store.dispatch(onGameStateChange(gameData));
       });
 
@@ -45,8 +51,12 @@ export default (store) => (next) => (action) => {
     }
 
     case CREATE_NEW_GAME: {
-      const { gameId: id, gameSettings: settings, clientRole: role } = action.payload;
-      socket.emit('new-game', { id, settings, client: { role } }, function (response) {
+      const {
+        gameId: id,
+        gameSettings: settings,
+        clientRole: role,
+      } = action.payload;
+      socket.emit('new-game', { id, settings, client: { role } }, response => {
         if (response.success) {
           store.dispatch(createNewGameSuccess());
         } else {
@@ -58,19 +68,23 @@ export default (store) => (next) => (action) => {
 
     case JOIN_EXISTING_GAME: {
       const { gameId: id, playerName: name, clientRole: role } = action.payload;
-      socket.emit('join-game', { id, player: { name }, client: { role } }, function (response) {
-        if (response.success) {
-          store.dispatch(joinExistingGameSuccess());
-        } else {
-          store.dispatch(joinExistingGameFailure(response.message));
-        }
-      });
+      socket.emit(
+        'join-game',
+        { id, player: { name }, client: { role } },
+        response => {
+          if (response.success) {
+            store.dispatch(joinExistingGameSuccess());
+          } else {
+            store.dispatch(joinExistingGameFailure(response.message));
+          }
+        },
+      );
       return next(action);
     }
 
     case START_GAME: {
       const { gameId: id, clientRole: role } = action.payload;
-      socket.emit('start-game', { id, client: { role } }, function (response) {
+      socket.emit('start-game', { id, client: { role } }, response => {
         if (response.success) {
           store.dispatch(startGameSuccess());
         } else {
@@ -84,4 +98,4 @@ export default (store) => (next) => (action) => {
       return next(action);
     }
   }
-}
+};

@@ -18,13 +18,14 @@ export const idFor = ({ id }) => id;
 export const settingsFor = ({ settings }) => settings;
 export const playersFor = ({ players }) => players;
 export const isJoinedFor = ({ isJoined }) => isJoined;
-export const isStartedFor = (state) => (settingsFor(state) || {}).state === states.STARTED;
+export const isStartedFor = state =>
+  (settingsFor(state) || {}).state === states.STARTED;
 export const failureMessageFor = ({ failureMessage }) => failureMessage;
 
 // Reducers
 
 const defaultState = {
-  isJoined: false
+  isJoined: false,
 };
 
 export default function(state = defaultState, action) {

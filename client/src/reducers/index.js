@@ -6,6 +6,7 @@ import game, * as fromGame from './game';
 import client, * as fromClient from './client';
 import player, * as fromPlayer from './player';
 
+/* eslint-disable no-shadow */
 const connectionFor = ({ connection }) => connection;
 const gameFor = ({ game }) => game;
 const clientFor = ({ client }) => client;
@@ -16,49 +17,28 @@ export const isConnectedFor = createSelector(
   fromConnection.isConnectedFor,
 );
 
-export const gameIdFor = createSelector(
-  gameFor,
-  fromGame.idFor
-);
+export const gameIdFor = createSelector(gameFor, fromGame.idFor);
 
-export const gameSettingsFor = createSelector(
-  gameFor,
-  fromGame.settingsFor
-);
+export const gameSettingsFor = createSelector(gameFor, fromGame.settingsFor);
 
-export const gameIsJoinedFor = createSelector(
-  gameFor,
-  fromGame.isJoinedFor
-);
+export const gameIsJoinedFor = createSelector(gameFor, fromGame.isJoinedFor);
 
-export const gameIsStartedFor = createSelector(
-  gameFor,
-  fromGame.isStartedFor
-);
+export const gameIsStartedFor = createSelector(gameFor, fromGame.isStartedFor);
 
 export const gameFailureMessageFor = createSelector(
   gameFor,
-  fromGame.failureMessageFor
+  fromGame.failureMessageFor,
 );
 
-export const playersFor = createSelector(
-  gameFor,
-  fromGame.playersFor
-);
+export const playersFor = createSelector(gameFor, fromGame.playersFor);
 
-export const clientRoleFor = createSelector(
-  clientFor,
-  fromClient.roleFor
-);
+export const clientRoleFor = createSelector(clientFor, fromClient.roleFor);
 
-export const playerNameFor = createSelector(
-  playerFor,
-  fromPlayer.nameFor
-);
+export const playerNameFor = createSelector(playerFor, fromPlayer.nameFor);
 
 export default combineReducers({
   connection,
   game,
   client,
-  player
+  player,
 });

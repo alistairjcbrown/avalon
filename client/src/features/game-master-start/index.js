@@ -1,28 +1,24 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { startGame } from 'actions/game';
 import {
   clientRoleFor,
   gameIdFor,
   gameSettingsFor,
   gameFailureMessageFor,
-  playersFor
+  playersFor,
 } from 'reducers';
 import GameMasterStart from './components';
 
-const mapStateToProps = (state) => {
-  return {
-    clientRole: clientRoleFor(state),
-    gameId: gameIdFor(state),
-    gameSettings: gameSettingsFor(state),
-    players: playersFor(state),
-    failureMessage: gameFailureMessageFor(state)
-  };
-};
+const mapStateToProps = state => ({
+  clientRole: clientRoleFor(state),
+  gameId: gameIdFor(state),
+  gameSettings: gameSettingsFor(state),
+  players: playersFor(state),
+  failureMessage: gameFailureMessageFor(state),
+});
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    startGame: (gameId, clientRole) => dispatch(startGame(gameId, clientRole))
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  startGame: (gameId, clientRole) => dispatch(startGame(gameId, clientRole)),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameMasterStart)
+export default connect(mapStateToProps, mapDispatchToProps)(GameMasterStart);

@@ -1,0 +1,36 @@
+{
+  "name": "avalon",
+  "private": "true",
+  "scripts": {
+    "start": "/bin/sh ./start.sh",
+    "lint": "npm run lint.js && npm run lint.markdown && npm run lint.json",
+    "lint.fix": "npm run lint.js -- --fix && npm run lint.markdown -- --write && npm run lint.json -- --write",
+    "lint.js": "npm run eslint -- . ./.eslintrc.js --report-unused-disable-directives",
+    "lint.markdown": "npm run prettier -- --check \"**/*.md\" --prose-wrap \"always\"",
+    "lint.json": "npm run prettier -- --check \"**/*.json\"",
+    "eslint": "node ./node_modules/eslint/bin/eslint.js",
+    "prettier": "node ./node_modules/prettier/bin-prettier.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alistairjcbrown/avalon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alistairjcbrown/avalon/issues"
+  },
+  "homepage": "https://github.com/alistairjcbrown/avalon#readme",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  }
+}

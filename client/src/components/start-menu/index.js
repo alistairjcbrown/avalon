@@ -1,41 +1,44 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import shortId from 'shortid';
 import './stylesheet.css';
 
-class StartScreen extends Component {
-  onJoinExistingGame = (e) => {
+function getDefaultGameId() {
+  return queryString.parse(window.location.search).gameId;
+}
+
+class StartMenu extends Component {
+  onJoinExistingGame = e => {
     e.preventDefault();
     const playerName = this.playerNameRef.value;
     const gameId = this.gameIdRef.value;
     if (!shortId.isValid(gameId)) return;
-    this.props.onJoinExistingGame(gameId, playerName);
-  }
+    const { onJoinExistingGame } = this.props;
+    onJoinExistingGame(gameId, playerName);
+  };
 
-  onCreateNewGame = (e) => {
+  onCreateNewGame = e => {
     e.preventDefault();
-    this.props.onCreateNewGame({ numberOfPlayers: 5 });
-  }
+    const { onCreateNewGame } = this.props;
+    onCreateNewGame({ numberOfPlayers: 5 });
+  };
 
-  setGameIdRef = (gameIdRef) => {
+  setGameIdRef = gameIdRef => {
     this.gameIdRef = gameIdRef;
-  }
+  };
 
-  setPlayerNameRef = (playerNameRef) => {
+  setPlayerNameRef = playerNameRef => {
     this.playerNameRef = playerNameRef;
-  }
+  };
 
-  checkInputSubmission = (e) => {
-    if (e.key === 'Enter') this.onJoinExistingGame(e);
-  }
-
-  onNameInputSubmission = (e) => {
+  onNameInputSubmission = e => {
     if (e.key === 'Enter') this.gameIdRef.focus();
-  }
+  };
 
-  getDefaultGameId() {
-    return queryString.parse(window.location.search).gameId;
-  }
+  checkInputSubmission = e => {
+    if (e.key === 'Enter') this.onJoinExistingGame(e);
+  };
 
   render() {
     return (
@@ -43,27 +46,29 @@ class StartScreen extends Component {
         <div className="start-menu__join-game">
           <input
             ref={this.setPlayerNameRef}
-            placeholder='Player name'
+            placeholder="Player name"
             onKeyPress={this.onNameInputSubmission}
           />
           <br />
           <input
             ref={this.setGameIdRef}
-            placeholder='Game Id'
+            placeholder="Game Id"
             maxLength={14}
             onKeyPress={this.checkInputSubmission}
-            defaultValue={this.getDefaultGameId()}
+            defaultValue={getDefaultGameId()}
           />
           <br />
-          <button onClick={this.onJoinExistingGame}>
+          <button type="button" onClick={this.onJoinExistingGame}>
             Join an existing game
           </button>
         </div>
 
-        <div className="start-menu__divider"><span>Or</span></div>
+        <div className="start-menu__divider">
+          <span>Or</span>
+        </div>
 
         <div className="start-menu__new-game">
-          <button onClick={this.onCreateNewGame}>
+          <button type="button" onClick={this.onCreateNewGame}>
             Start a new game
           </button>
         </div>
@@ -72,4 +77,9 @@ class StartScreen extends Component {
   }
 }
 
-export default StartScreen;
+StartMenu.propTypes = {
+  onJoinExistingGame: PropTypes.func.isRequired,
+  onCreateNewGame: PropTypes.func.isRequired,
+};
+
+export default StartMenu;

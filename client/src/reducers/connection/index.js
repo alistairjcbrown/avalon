@@ -7,7 +7,7 @@ export const isConnectedFor = ({ isConnected }) => isConnected;
 // Reducers
 
 const defaultState = {
-  isConnected: false
+  isConnected: false,
 };
 
 export default function(state = defaultState, action) {

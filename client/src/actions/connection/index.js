@@ -8,17 +8,17 @@ export const DISCONNECTED = 'DISCONNECTED';
 // Actions
 
 export function connect() {
-  return { type: CONNECT }
+  return { type: CONNECT };
 }
 
 export function onConnected() {
-  return { type: CONNECTED }
+  return { type: CONNECTED };
 }
 
 export function disconnect() {
-  return { type: DISCONNECT }
+  return { type: DISCONNECT };
 }
 
 export function onDisconnected() {
-  return { type: DISCONNECTED }
+  return { type: DISCONNECTED };
 }

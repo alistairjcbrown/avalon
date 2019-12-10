@@ -1,4 +1,4 @@
-import { PLAYER, GAME_MASTER } from 'roles'
+import { PLAYER, GAME_MASTER } from 'roles';
 
 // Action Types
 
@@ -18,66 +18,66 @@ export const START_GAME_FAILURE = 'START_GAME_FAILURE';
 export function onGameStateChange(gameData) {
   return {
     type: GAME_STATE_CHANGE,
-    payload: gameData
+    payload: gameData,
   };
 }
 
 export function createNewGame(gameId, gameSettings) {
   return {
     type: CREATE_NEW_GAME,
-    payload: { gameId, gameSettings, clientRole: GAME_MASTER }
+    payload: { gameId, gameSettings, clientRole: GAME_MASTER },
   };
 }
 
 export function createNewGameSuccess() {
   return {
-    type: CREATE_NEW_GAME_SUCCESS
+    type: CREATE_NEW_GAME_SUCCESS,
   };
 }
 
 export function createNewGameFailure(failureMessage) {
   return {
     type: CREATE_NEW_GAME_FAILURE,
-    payload: { failureMessage }
+    payload: { failureMessage },
   };
 }
 
 export function joinExistingGame(gameId, playerName) {
   return {
     type: JOIN_EXISTING_GAME,
-    payload: { gameId, playerName, clientRole: PLAYER }
+    payload: { gameId, playerName, clientRole: PLAYER },
   };
 }
 
 export function joinExistingGameSuccess() {
   return {
-    type: JOIN_EXISTING_GAME_SUCCESS
+    type: JOIN_EXISTING_GAME_SUCCESS,
   };
 }
 
 export function joinExistingGameFailure(failureMessage) {
   return {
     type: JOIN_EXISTING_GAME_FAILURE,
-    payload: { failureMessage }
+    payload: { failureMessage },
   };
 }
 
 export function startGame(gameId, clientRole) {
   return {
     type: START_GAME,
-    payload: { gameId, clientRole }
+    payload: { gameId, clientRole },
   };
 }
 
 export function startGameSuccess() {
   return {
-    type: START_GAME_SUCCESS
+    type: START_GAME_SUCCESS,
   };
 }
 
 export function startGameFailure(failureMessage) {
   return {
     type: START_GAME_FAILURE,
-    payload: { failureMessage }
+    payload: { failureMessage },
   };
 }
