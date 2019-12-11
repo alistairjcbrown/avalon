@@ -25,9 +25,9 @@ export const gameIsJoinedFor = createSelector(gameFor, fromGame.isJoinedFor);
 
 export const gameIsStartedFor = createSelector(gameFor, fromGame.isStartedFor);
 
-export const gameFailureMessageFor = createSelector(
+export const gameFailureCodeFor = createSelector(
   gameFor,
-  fromGame.failureMessageFor,
+  fromGame.failureCodeFor,
 );
 
 export const playersFor = createSelector(gameFor, fromGame.playersFor);

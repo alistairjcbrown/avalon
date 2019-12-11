@@ -1,17 +1,16 @@
 import { connect } from 'react-redux';
-import shortId from 'shortid';
 import { createNewGame, joinExistingGame } from 'actions/game';
-import { gameFailureMessageFor } from 'reducers';
+import { gameFailureCodeFor } from 'reducers';
+import generateGameId from './generate-game-id';
 import InitialScreen from './components';
 
 const mapStateToProps = state => ({
-  failureMessage: gameFailureMessageFor(state),
+  failureCode: gameFailureCodeFor(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   onCreateNewGame(gameSettings) {
-    const gameId = shortId.generate();
-    dispatch(createNewGame(gameId, gameSettings));
+    dispatch(createNewGame(generateGameId(), gameSettings));
   },
 
   onJoinExistingGame(gameId, playerName) {

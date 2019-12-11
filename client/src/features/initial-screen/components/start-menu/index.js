@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import shortId from 'shortid';
+import { isValid } from '../../generate-game-id';
 import './stylesheet.css';
 
 function getDefaultGameId() {
@@ -11,9 +11,11 @@ function getDefaultGameId() {
 class StartMenu extends Component {
   onJoinExistingGame = e => {
     e.preventDefault();
+
     const playerName = this.playerNameRef.value;
     const gameId = this.gameIdRef.value;
-    if (!shortId.isValid(gameId)) return;
+    if (!isValid(gameId)) return;
+
     const { onJoinExistingGame } = this.props;
     onJoinExistingGame(gameId, playerName);
   };
@@ -53,7 +55,7 @@ class StartMenu extends Component {
           <input
             ref={this.setGameIdRef}
             placeholder="Game Id"
-            maxLength={14}
+            maxLength={100}
             onKeyPress={this.checkInputSubmission}
             defaultValue={getDefaultGameId()}
           />

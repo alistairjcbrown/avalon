@@ -60,7 +60,7 @@ export default store => next => action => {
         if (response.success) {
           store.dispatch(createNewGameSuccess());
         } else {
-          store.dispatch(createNewGameFailure(response.message));
+          store.dispatch(createNewGameFailure(response.error));
         }
       });
       return next(action);
@@ -75,7 +75,7 @@ export default store => next => action => {
           if (response.success) {
             store.dispatch(joinExistingGameSuccess());
           } else {
-            store.dispatch(joinExistingGameFailure(response.message));
+            store.dispatch(joinExistingGameFailure(response.error));
           }
         },
       );
@@ -88,7 +88,7 @@ export default store => next => action => {
         if (response.success) {
           store.dispatch(startGameSuccess());
         } else {
-          store.dispatch(startGameFailure(response.message));
+          store.dispatch(startGameFailure(response.error));
         }
       });
       return next(action);

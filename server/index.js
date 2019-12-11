@@ -5,6 +5,7 @@ const io = require('socket.io')(server);
 const config = require('../client/src/config');
 const roles = require('../client/src/roles');
 const states = require('../client/src/states');
+const errors = require('../client/src/server-errors');
 
 const clientData = {};
 const gameData = {};
@@ -48,7 +49,7 @@ io.on('connection', socket => {
     'new-game',
     ({ id: gameId, settings: gameSettings, client }, callback) => {
       if (gameData[gameId]) {
-        callback({ success: false, gameId, message: 'Game already exists' });
+        callback({ success: false, gameId, error: errors.GAME_ALREADY_EXISTS });
         return;
       }
 
@@ -68,17 +69,17 @@ io.on('connection', socket => {
 
   socket.on('join-game', ({ id: gameId, player, client }, callback) => {
     if (!gameData[gameId]) {
-      callback({ success: false, gameId, message: 'Game does not exist' });
+      callback({ success: false, gameId, error: errors.GAME_DOES_NOT_EXIST });
       return;
     }
 
     if (alreadyInGame(player, gameId)) {
-      callback({ success: false, gameId, message: 'Player already joined' });
+      callback({ success: false, gameId, error: errors.PLAYER_ALREADY_JOINED });
       return;
     }
 
     if (getGamePlayers(gameId).length === getGameData(gameId).numberOfPlayers) {
-      callback({ success: false, gameId, message: 'Game is full' });
+      callback({ success: false, gameId, error: errors.GAME_FULL });
       return;
     }
 
@@ -98,20 +99,12 @@ io.on('connection', socket => {
 
   socket.on('start-game', ({ id: gameId, client }, callback) => {
     if (client.role !== roles.GAME_MASTER) {
-      callback({
-        success: false,
-        gameId,
-        message: 'Only the game master can start the game',
-      });
+      callback({ success: false, gameId, error: errors.START_GAME_MASTER });
       return;
     }
 
     if (getGamePlayers(gameId).length !== getGameData(gameId).numberOfPlayers) {
-      callback({
-        success: false,
-        gameId,
-        message: 'Game must have all players',
-      });
+      callback({ success: false, gameId, error: errors.START_MISSING_PLAYERS });
       return;
     }
 

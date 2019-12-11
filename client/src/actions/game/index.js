@@ -35,10 +35,10 @@ export function createNewGameSuccess() {
   };
 }
 
-export function createNewGameFailure(failureMessage) {
+export function createNewGameFailure(failureCode) {
   return {
     type: CREATE_NEW_GAME_FAILURE,
-    payload: { failureMessage },
+    payload: { failureCode },
   };
 }
 
@@ -55,10 +55,10 @@ export function joinExistingGameSuccess() {
   };
 }
 
-export function joinExistingGameFailure(failureMessage) {
+export function joinExistingGameFailure(failureCode) {
   return {
     type: JOIN_EXISTING_GAME_FAILURE,
-    payload: { failureMessage },
+    payload: { failureCode },
   };
 }
 
@@ -75,9 +75,9 @@ export function startGameSuccess() {
   };
 }
 
-export function startGameFailure(failureMessage) {
+export function startGameFailure(failureCode) {
   return {
     type: START_GAME_FAILURE,
-    payload: { failureMessage },
+    payload: { failureCode },
   };
 }

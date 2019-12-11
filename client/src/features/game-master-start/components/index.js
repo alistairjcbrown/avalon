@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Planet } from 'react-kawaii';
 import QRCode from 'qrcode.react';
-import { SPECTATOR, PLAYER, GAME_MASTER } from 'roles';
+import roles from 'roles';
+import serverErrors from 'server-errors';
+import getFailureMessage from 'get-failure-message';
 import RoleBanner from 'components/role-banner';
 import avatarConfigurations from './avatar-configurations';
 import './stylesheet.css';
@@ -20,12 +22,12 @@ class GameMasterStart extends Component {
   }
 
   renderFailureMessage() {
-    const { failureMessage } = this.props;
-    if (!failureMessage) return null;
+    const { failureCode } = this.props;
+    if (!failureCode) return null;
 
     return (
       <div className="game-master-start__failure">
-        Failed to start game, {failureMessage.toLowerCase()}
+        Failed to start game: {getFailureMessage(failureCode)}
       </div>
     );
   }
@@ -106,8 +108,8 @@ class GameMasterStart extends Component {
 GameMasterStart.propTypes = {
   startGame: PropTypes.func.isRequired,
   gameId: PropTypes.string.isRequired,
-  clientRole: PropTypes.oneOf([SPECTATOR, PLAYER, GAME_MASTER]).isRequired,
-  failureMessage: PropTypes.string,
+  clientRole: PropTypes.oneOf(Object.keys(roles)).isRequired,
+  failureCode: PropTypes.oneOf(Object.keys(serverErrors)),
   gameSettings: PropTypes.shape({
     numberOfPlayers: PropTypes.number.isRequired,
   }).isRequired,
@@ -122,7 +124,7 @@ GameMasterStart.propTypes = {
 
 GameMasterStart.defaultProps = {
   players: [],
-  failureMessage: null,
+  failureCode: null,
 };
 
 export default GameMasterStart;

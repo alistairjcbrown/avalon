@@ -20,7 +20,7 @@ export const playersFor = ({ players }) => players;
 export const isJoinedFor = ({ isJoined }) => isJoined;
 export const isStartedFor = state =>
   (settingsFor(state) || {}).state === states.STARTED;
-export const failureMessageFor = ({ failureMessage }) => failureMessage;
+export const failureCodeFor = ({ failureCode }) => failureCode;
 
 // Reducers
 
@@ -45,8 +45,8 @@ export default function(state = defaultState, action) {
     }
 
     case CREATE_NEW_GAME_FAILURE: {
-      const { failureMessage } = action.payload;
-      return { ...state, isJoined: false, failureMessage };
+      const { failureCode } = action.payload;
+      return { ...state, isJoined: false, failureCode };
     }
 
     case JOIN_EXISTING_GAME: {
@@ -59,8 +59,8 @@ export default function(state = defaultState, action) {
     }
 
     case JOIN_EXISTING_GAME_FAILURE: {
-      const { failureMessage } = action.payload;
-      return { ...state, isJoined: false, failureMessage };
+      const { failureCode } = action.payload;
+      return { ...state, isJoined: false, failureCode };
     }
 
     case START_GAME: {
@@ -72,8 +72,8 @@ export default function(state = defaultState, action) {
     }
 
     case START_GAME_FAILURE: {
-      const { failureMessage } = action.payload;
-      return { ...state, isStarted: false, failureMessage };
+      const { failureCode } = action.payload;
+      return { ...state, isStarted: false, failureCode };
     }
 
     default:

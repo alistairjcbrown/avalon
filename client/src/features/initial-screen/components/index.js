@@ -1,25 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StartMenu from 'components/start-menu';
+import serverErrors from 'server-errors';
+import getFailureMessage from 'get-failure-message';
+import StartMenu from './start-menu';
 import './stylesheet.css';
 
-function renderFailureMessage(failureMessage) {
-  if (!failureMessage) return null;
+function renderFailureMessage(failureCode) {
+  if (!failureCode) return null;
 
   return (
     <div className="initial-screen__failure">
-      Failed to connect to game, {failureMessage.toLowerCase()}
+      Failed to connect to game: {getFailureMessage(failureCode)}
     </div>
   );
 }
 
 const InitialScreen = ({
-  failureMessage,
+  failureCode,
   onCreateNewGame,
   onJoinExistingGame,
 }) => (
   <div className="initial-screen">
-    {renderFailureMessage(failureMessage)}
+    {renderFailureMessage(failureCode)}
     <StartMenu
       onCreateNewGame={onCreateNewGame}
       onJoinExistingGame={onJoinExistingGame}
@@ -28,13 +30,13 @@ const InitialScreen = ({
 );
 
 InitialScreen.propTypes = {
-  failureMessage: PropTypes.string,
+  failureCode: PropTypes.oneOf(Object.keys(serverErrors)),
   onCreateNewGame: PropTypes.func.isRequired,
   onJoinExistingGame: PropTypes.func.isRequired,
 };
 
 InitialScreen.defaultProps = {
-  failureMessage: null,
+  failureCode: null,
 };
 
 export default InitialScreen;

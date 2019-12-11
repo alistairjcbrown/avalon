@@ -4,7 +4,7 @@ import {
   clientRoleFor,
   gameIdFor,
   gameSettingsFor,
-  gameFailureMessageFor,
+  gameFailureCodeFor,
   playersFor,
 } from 'reducers';
 import GameMasterStart from './components';
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   gameId: gameIdFor(state),
   gameSettings: gameSettingsFor(state),
   players: playersFor(state),
-  failureMessage: gameFailureMessageFor(state),
+  failureCode: gameFailureCodeFor(state),
 });
 
 const mapDispatchToProps = dispatch => ({
