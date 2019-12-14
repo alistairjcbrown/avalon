@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import serverErrors from 'server-errors';
-import getFailureMessage from 'get-failure-message';
+import constants from 'shared-constants';
+import getFailureMessage from 'features/shared/get-failure-message';
 import StartMenu from './start-menu';
 import './stylesheet.css';
 
@@ -30,7 +30,7 @@ const InitialScreen = ({
 );
 
 InitialScreen.propTypes = {
-  failureCode: PropTypes.oneOf(Object.keys(serverErrors)),
+  failureCode: PropTypes.oneOf(Object.values(constants.serverErrors)),
   onCreateNewGame: PropTypes.func.isRequired,
   onJoinExistingGame: PropTypes.func.isRequired,
 };

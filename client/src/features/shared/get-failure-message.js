@@ -1,11 +1,13 @@
-import {
+import constants from 'shared-constants';
+
+const {
   GAME_ALREADY_EXISTS,
   GAME_DOES_NOT_EXIST,
   PLAYER_ALREADY_JOINED,
   GAME_FULL,
   START_GAME_MASTER,
   START_MISSING_PLAYERS,
-} from './server-errors';
+} = constants.serverErrors;
 
 function getFailureMessage(failureCode) {
   switch (failureCode) {

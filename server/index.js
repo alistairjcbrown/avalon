@@ -3,9 +3,11 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
 const config = require('../client/src/config');
-const roles = require('../client/src/roles');
-const states = require('../client/src/states');
-const errors = require('../client/src/server-errors');
+const {
+  serverErrors: errors,
+  roles,
+  states,
+} = require('../client/src/shared-constants');
 
 const clientData = {};
 const gameData = {};

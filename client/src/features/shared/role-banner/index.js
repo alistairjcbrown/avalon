@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SPECTATOR, PLAYER, GAME_MASTER } from 'roles';
+import constants from 'shared-constants';
 import './stylesheet.css';
+
+const { SPECTATOR, PLAYER, GAME_MASTER } = constants.roles;
 
 function renderRole(role) {
   switch (role) {

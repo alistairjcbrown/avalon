@@ -1,4 +1,6 @@
-import { PLAYER, GAME_MASTER } from 'roles';
+import constants from 'shared-constants';
+
+const { PLAYER, GAME_MASTER } = constants.roles;
 
 // Action Types
 

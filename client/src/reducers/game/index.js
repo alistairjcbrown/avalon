@@ -1,4 +1,4 @@
-import states from 'states';
+import constants from 'shared-constants';
 import {
   GAME_STATE_CHANGE,
   CREATE_NEW_GAME,
@@ -19,7 +19,7 @@ export const settingsFor = ({ settings }) => settings;
 export const playersFor = ({ players }) => players;
 export const isJoinedFor = ({ isJoined }) => isJoined;
 export const isStartedFor = state =>
-  (settingsFor(state) || {}).state === states.STARTED;
+  (settingsFor(state) || {}).state === constants.states.STARTED;
 export const failureCodeFor = ({ failureCode }) => failureCode;
 
 // Reducers

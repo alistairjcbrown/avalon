@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Planet } from 'react-kawaii';
-import RoleBanner from 'components/role-banner';
-import avatarConfigurations from '../../game-master-start/components/avatar-configurations';
+import RoleBanner from 'features/shared/role-banner';
+import avatarConfigurations from 'features/shared/avatar-configurations';
 import './stylesheet.css';
 
 class PlayerStart extends Component {

@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import config from 'config';
 import {
   CONNECT,
   DISCONNECT,
@@ -17,7 +18,6 @@ import {
   startGameSuccess,
   startGameFailure,
 } from 'actions/game';
-import config from '../../config';
 
 let socket = null;
 

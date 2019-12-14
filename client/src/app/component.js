@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SPECTATOR, PLAYER, GAME_MASTER } from 'roles';
+import constants from 'shared-constants';
 
 import InitialScreen from 'features/initial-screen';
-import GameMasterStart from 'features/game-master-start';
-import PlayerStart from 'features/player-start';
-import GameMasterGame from 'features/game-master-game';
-import PlayerGame from 'features/player-game';
+import GameMasterStart from 'features/game-master/start';
+import GameMasterGame from 'features/game-master/game';
+import PlayerStart from 'features/player/start';
+import PlayerGame from 'features/player/game';
 
 import './stylesheet.css';
+
+const { SPECTATOR, PLAYER, GAME_MASTER } = constants.roles;
 
 class App extends Component {
   componentDidMount() {
@@ -18,10 +20,17 @@ class App extends Component {
 
   render() {
     const { role, isJoined, isStarted } = this.props;
-    if (role === PLAYER && isStarted) return <PlayerGame />;
-    if (role === GAME_MASTER && isStarted) return <GameMasterGame />;
-    if (role === PLAYER && isJoined) return <PlayerStart />;
-    if (role === GAME_MASTER && isJoined) return <GameMasterStart />;
+
+    if (role === PLAYER) {
+      if (isStarted) return <PlayerGame />;
+      if (isJoined) return <PlayerStart />;
+    }
+
+    if (role === GAME_MASTER) {
+      if (isStarted) return <GameMasterGame />;
+      if (isJoined) return <GameMasterStart />;
+    }
+
     return <InitialScreen />;
   }
 }

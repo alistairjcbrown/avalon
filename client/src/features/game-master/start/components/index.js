@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Planet } from 'react-kawaii';
 import QRCode from 'qrcode.react';
-import roles from 'roles';
-import serverErrors from 'server-errors';
-import getFailureMessage from 'get-failure-message';
-import RoleBanner from 'components/role-banner';
-import avatarConfigurations from './avatar-configurations';
+import constants from 'shared-constants';
+import getFailureMessage from 'features/shared/get-failure-message';
+import RoleBanner from 'features/shared/role-banner';
+import avatarConfigurations from 'features/shared/avatar-configurations';
 import './stylesheet.css';
 
 class GameMasterStart extends Component {
@@ -108,8 +107,8 @@ class GameMasterStart extends Component {
 GameMasterStart.propTypes = {
   startGame: PropTypes.func.isRequired,
   gameId: PropTypes.string.isRequired,
-  clientRole: PropTypes.oneOf(Object.keys(roles)).isRequired,
-  failureCode: PropTypes.oneOf(Object.keys(serverErrors)),
+  clientRole: PropTypes.oneOf(Object.values(constants.roles)).isRequired,
+  failureCode: PropTypes.oneOf(Object.values(constants.serverErrors)),
   gameSettings: PropTypes.shape({
     numberOfPlayers: PropTypes.number.isRequired,
   }).isRequired,
